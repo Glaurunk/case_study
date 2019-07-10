@@ -10,11 +10,11 @@ class Course extends Model
 
   public function teachers()
               {
-                  return $this->belongsToMany(Teacher::class);
+                  return $this->belongsTo('App\Teacher');
               }
 
     public function students()
               {
-                  return $this->belongsToMany(Teacher::class);
+                  return $this->belongsToMany('App\Student');
               }
 }

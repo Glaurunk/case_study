@@ -16,6 +16,12 @@ Route::get('/', function () {
 });
 Route::get('/home', 'HomeController@index')->name('home');
 
+// RESOURCES
+Route::resource('courses', 'CourseController');
+Route::resource('students', 'StudentController');
+Route::resource('teachers', 'TeacherController');
+
 // Authentication. No registration besides the admin needed. All other users will be created by the admin.
-//Auth::routes(['register' => false]);
-Auth::routes();
+Auth::routes(['register' => false,
+              'login' => false
+  ]);

@@ -5,3 +5,7 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.text-bigger {
+  font-size: 1.3em;
+}
