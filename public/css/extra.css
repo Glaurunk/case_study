@@ -1,0 +1,7 @@
+/* Our custom css */
+
+.wrapper {
+  background-color: #cccccc;
+  max-width: 1200px;
+  margin: 0 auto;
+}
