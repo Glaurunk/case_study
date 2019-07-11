@@ -10,6 +10,6 @@
     <li>Basic front end validation with HTML and Boostrap classes</li>
     <li>Some assynchronus database manipulation. Student's grades are passed on the front end with AJAX calls.
 </ul>
-<p>The installation includes custom factories and seeds, so don;t forget to run db:seed!</p>
+<p>The installation includes custom factories and seeds, so don't forget to run db:seed if you need lots of data!</p>
 <p>The installation uses Bootstrap imported with npm and the JQuery and Select2 libraries imported via cdn for AJAX and select operations</p>
     
