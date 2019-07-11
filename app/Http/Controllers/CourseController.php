@@ -48,7 +48,6 @@ class CourseController extends Controller
       $course->date = $request->date;
       $course->start_time = $request->start;
       $course->end_time = $request->end;
-      //  dd($course);
       $course->save();
 
       return redirect('/courses')->withInput()->with('success', 'The course has been added to the registry.');

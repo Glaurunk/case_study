@@ -37,14 +37,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-// WE use a many to many relationship in case we need in the future to have multiple user roles
-    public function roles()
-              {
-                  return $this->belongsToMany('App\Role');
-              }
-//check user role
-    public function hasRole($role)
-              {
-                  return null !== $this->roles()->where('name', $role)->first();
-              }
 }

@@ -14,6 +14,7 @@
             <tr>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
+              <th scope="col">Courses</th>
               <th scope="col">Age</th>
               <th scope="col">Actions</th>
               <th scope="col"></th>
@@ -25,6 +26,7 @@
               <tr>
                 <th scope="row"><a href="{{ route('students.show', $student->id) }}">{{ $student->name}}</a></th>
                 <td>{{ $student->email }}</td>
+                <td>{{ count($student->courses) }}</td>
                 <td>{{ $student->age}}</td>
                 <td><a href="{{ route('students.edit', $student->id) }}"class="btn btn-sm btn-outline-info">Update</a></td>
                 <td>
