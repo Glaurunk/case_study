@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Teacher;
+use App\Http\Requests\StoreTeacher;
+use App\Http\Requests\UpdateTeacher;
 
 class TeacherController extends Controller
 {
@@ -11,10 +14,11 @@ class TeacherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+     public function index()
+     {
+         $teachers = Teacher::orderby('name', 'asc')->paginate(10);
+         return view('teachers.index')->with('teachers', $teachers);
+     }
 
     /**
      * Show the form for creating a new resource.
@@ -23,7 +27,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        return view('teachers.create');
     }
 
     /**
@@ -32,9 +36,25 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTeacher $request)
     {
-        //
+      if ($request->age < 18)
+        {
+          return back()->with('error', 'The teacher cannot be underage!');
+        }
+      if  ($request->age > 65)
+        {
+          return back()->with('error', 'The teacher should be retired!');
+        }
+
+        $teacher = new Teacher;
+        $teacher->name = $request->name;
+        $teacher->email = $request->email;
+        $teacher->age = $request->age;
+        $teacher->save();
+
+        return redirect('/teachers')->withInput()->with('success', 'The teacher has been added to the registry.');
+
     }
 
     /**
@@ -43,9 +63,9 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Teacher $teacher)
     {
-        //
+        return view('teachers.show', compact('teacher'));
     }
 
     /**
@@ -54,9 +74,9 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Teacher $teacher)
     {
-        //
+      return view('teachers.edit', compact('teacher'));
     }
 
     /**
@@ -66,9 +86,22 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTeacher $request, Teacher $teacher)
     {
-        //
+      if ($request->age < 18)
+        {
+          return back()->with('error', 'The teacher cannot be underage!');
+        }
+      if  ($request->age > 65)
+        {
+          return back()->with('error', 'The teacher should be retired!');
+        }
+
+        $teacher->name = $request->name;
+        $teacher->age = $request->age;
+        $teacher->save();
+
+        return redirect('/teachers')->withInput()->with('success', "The teacher's record has been updated");
     }
 
     /**
@@ -77,8 +110,9 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+     public function destroy(Teacher $teacher)
+     {
+         $teacher->delete();
+         return redirect('/teachers')->with('success', 'The teacher has been removed from the registry');
+     }
 }

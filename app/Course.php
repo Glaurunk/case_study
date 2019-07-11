@@ -8,13 +8,28 @@ class Course extends Model
 {
   protected $guarded = [];
 
-  public function teachers()
-              {
-                  return $this->belongsTo('App\Teacher');
-              }
+  public function teacher()
+  {
+      return $this->belongsTo('App\Teacher');
+  }
 
-    public function students()
-              {
-                  return $this->belongsToMany('App\Student');
-              }
+  public function students()
+  {
+      return $this->belongsToMany('App\Student');
+  }
+
+  public function dateFormated()
+  {
+      return date('d M Y', strtotime($this->date));
+  }
+
+  public function start_timeFormated()
+  {
+      return date('H:i', strtotime($this->start_time));
+  }
+
+  public function end_timeFormated()
+  {
+      return date('H:i', strtotime($this->end_time));
+  }
 }

@@ -5,16 +5,9 @@
 @section('content')
   <div class="card">
     <div class="card-header">
-      <h3>Welcome to our class. Please log in to an account type to continue</h3></div>
+      <h3>Welcome to The Class</h3></div>
       <div class="card-body">
-
-      <h4>Account types</h4>
-      <ul class="list-group">
-          <li class="list-group-item"><em>Administrator: </em>Can create and delete users. Can create and delete courses. Can assign teachers and students to courses.</li>
-          <li class="list-group-item"><em>Teacher: </em>Can insert and view grades in the courses he is assigned to.</li>
-          <li class="list-group-item"><em>Student: <em>Can view his own grades.</li>
-      </ul>
-      <p></p>
+      <h5>Use the nav menu to browse through the different sections of the database and don't forget to run <span class="text-danger">php artisan db:seed</span> to seed your database with the prepared seeders.</h5>
     </div>
   </div>
 @endsection

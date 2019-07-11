@@ -9,9 +9,9 @@ class Student extends Model
   protected $guarded = [];
 
   public function courses()
-            {
-                return $this->belongsToMany('App\Course');
-            }
+  {
+      return $this->belongsToMany('App\Course');
+  }
 
 
 }

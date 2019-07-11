@@ -9,7 +9,8 @@ class Teacher extends Model
   protected $guarded = [];
 
   public function courses()
-            {
-                return $this->hasMany('App\Course');
-            }
+  {
+      return $this->hasMany('App\Course');
+  }
+
 }

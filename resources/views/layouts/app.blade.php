@@ -8,7 +8,7 @@
 
           @include('layouts.nav')
 
-          @include('layouts.actions')
+          @include('layouts.nav-menu')
 
           @include('layouts.messages')
 

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Course;
+use App\Http\Requests\StoreCourse;
+use App\Http\Requests\UpdateCourse;
+use App\Teacher;
+use App\Student;
 
 class CourseController extends Controller
 {
@@ -13,7 +18,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+      $courses = Course::orderby('title', 'asc')->paginate(10);
+      return view('courses.index')->with('courses', $courses);
     }
 
     /**
@@ -23,7 +29,9 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        $teachers = Teacher::all();
+        $students = Student::all();
+        return view('courses.create')->with('teachers', $teachers)->with('students', $students);
     }
 
     /**
@@ -32,9 +40,18 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCourse $request)
     {
-        //
+      $course = new Course;
+      $course->title = $request->title;
+      $course->teacher_id = $request->teacher_id;
+      $course->date = $request->date;
+      $course->start_time = $request->start;
+      $course->end_time = $request->end;
+      //  dd($course);
+      $course->save();
+
+      return redirect('/courses')->withInput()->with('success', 'The course has been added to the registry.');
     }
 
     /**
@@ -43,9 +60,9 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Course $course)
     {
-        //
+        return view('courses.show', compact('course'));
     }
 
     /**
@@ -54,9 +71,11 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Course $course)
     {
-        //
+        $teachers = Teacher::all();
+        $students = Student::all();
+        return view('courses.edit')->with('course', $course)->with('teachers', $teachers)->with('students', $students);
     }
 
     /**
@@ -66,9 +85,16 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Course $course, UpdateCourse $request)
     {
-        //
+      $course->title = $request->title;
+      $course->teacher_id = $request->teacher_id;
+      $course->date = $request->date;
+      $course->start_time = $request->start;
+      $course->end_time = $request->end;
+      $course->save();
+
+      return redirect('/courses')->withInput()->with('success', "The course's information have been updated.");
     }
 
     /**
@@ -77,8 +103,9 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Course $course)
     {
-        //
+      $course->delete();
+      return redirect('/courses')->with('success', 'The course has been removed from the registry');
     }
 }
