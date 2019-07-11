@@ -14,6 +14,7 @@
             <tr>
               <th scope="col">Title</th>
               <th scope="col">Teacher</th>
+              <th scope="col">Students</th>
               <th scope="col">Date</th>
               <th scope="col">Hours</th>
               <th scope="col">Actions</th>
@@ -31,7 +32,8 @@
                   @else
                     <p class="text-danger">TEACHER MISSING!</p>
                   @endif
-                  </td>
+                </td>
+                <td class="text-center">{{ count($course->students) }}</td>
                 <td>{{ $course->dateFormated() }}</td>
                 <td>starts at: {{ $course->start_timeFormated() }}<br>
                   ends at: {{ $course->end_timeFormated() }}

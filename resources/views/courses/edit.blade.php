@@ -15,42 +15,43 @@
             <small>Maximum of 255 characters</small>
           </div>
 
-          <div class="form-group">
+           <div class="form-group">
             <label for="courseTeacher">Assign a Teacher</label>
             @if (count($teachers) > 0)
               <select class="form-control js-example-basic-single" name="teacher_id">
                   @foreach ($teachers as $teacher)
-                    <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                    <option
+                      value="{{ $teacher->id }}"
+                      @if ($teacher->id == $course->teacher_id)
+                        selected
+                      @endif
+                      >{{ $teacher->name }}
+                    </option>
                   @endforeach
               </select>
-              <small>Assigned teacher:
-                @if (count($teachers) > 0)
-                  {{ $course->teacher->name }},
-                @else
-                  NONE
-                @endif
-              </small>
+
               @else
                   <p class="text-danger"><strong>No teachers found in the registry! You can assign them later.</strong></p>
               @endif
 
               <div class="form-group mt-3">
-                <label for="courseTeacher">Enroll Student(s)</label>
+                <label for="courseTeacher">Add / Remove Students </label>
                 @if (count($students) > 0)
                   <select class="form-control js-example-basic-multiple" name="students[]" multiple="multiple">
                       @foreach ($students as $student)
-                        <option value="{{ $student->id }}">{{ $student->name }}</option>
+                        <option
+                          @if (in_array($student->id, $course->students->pluck('id')->toArray()))
+                            selected
+                          @endif
+                          value="{{ $student->id }}">{{ $student->name }}
+                        </option>
                       @endforeach
                   </select>
-                  <small>Currently attending:
-                    @if (count($course->students) > 0)
-                      @foreach ($course->students as $student)
-                      {{ $student->name }},
-                      @endforeach
-                    @else
-                      NONE
-                    @endif
-                  </small>
+                      @if (count($course->students) == 0)
+                        <small class="text-danger">
+                            NO STUDENTS ARE ASSIGNED TO THIS COURSE
+                        </small>
+                      @endif
 
                   @else
                       <p class="text-danger"><strong>No students found in the registry! You can assign them later.</strong></p>
@@ -90,10 +91,7 @@
                 </form>
               </div> <!-- here ends col -->
             </div> <!-- here ends row -->
-
-
-
-
+            <hr>
 
     </div> <!-- here ends card-body -->
   </div> <!-- here ends card -->

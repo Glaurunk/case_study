@@ -17,7 +17,6 @@
             <tr>
               <th scope="col">Course</th>
               <th scope="col">Grade</th>
-              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -25,9 +24,25 @@
             @foreach ($student->courses as $course)
               <tr>
                 <th scope="row"><a href="{{ route('courses.show', $course->id) }}">{{ $course->title}}</a></th>
-                <td>{{ $course->grade }}</td>
-                <td><a href="#"class="btn btn-sm btn-outline-dark">Pass Grade</a></td>
                 <td>
+                  @php
+                    $grade = $course->students->find($student->id)->pivot->grade
+                  @endphp
+
+                  @if ($grade == 1)
+                    <span class="text-danger">FAIL</span>
+                  @elseif ($grade == 2)
+                    <span class="text-success">PASS</span>
+                  @elseif ($grade == 3)
+                    <span class="text-success">GOOD</span>
+                  @elseif ($grade == 4)
+                    <span class="text-success">VERY GOOD</span>
+                  @elseif ($grade == 5)
+                    <span class="text-success">EXCELLENT</span>
+                  @else
+                    <span class="text-info">UNASSIGNED</span>
+                  @endif
+                </td>
               </tr>
             @endforeach
           </tbody>

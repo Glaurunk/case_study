@@ -94,6 +94,8 @@ class CourseController extends Controller
       $course->end_time = $request->end;
       $course->save();
 
+      $course->students()->sync($request->students);
+
       return redirect('/courses')->withInput()->with('success', "The course's information have been updated.");
     }
 

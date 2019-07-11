@@ -13,12 +13,24 @@
 
       @if (count($teacher->courses) > 0)
 
-        <h5>{{ $teacher->name }} teaches the following courses</h5>
-        <ul class="list-group">
-          @foreach ($teacher->courses as $course)
-            <li class="list-group-item"><a href="{{ route('courses.show', $course->id) }}">{{ $course->title}}</a></li>
-          @endforeach
-        </ul>
+        <h5>{{ $teacher->name }} teaches the following courses:</h5>
+        <table class="table mt-3">
+          <thead>
+            <tr>
+              <th scope="col">Course Title</th>
+              <th scope="col">Attending Students</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($teacher->courses as $course)
+              <tr>
+                <td><a href="{{ route('courses.show', $course->id) }}">{{ $course->title}}</a>
+                </td>
+                <td>{{ count($course->students) }}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
 
       @else
         <h4 class="text-danger">This teachers has no assigned courses</h4>

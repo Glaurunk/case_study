@@ -18,6 +18,8 @@
 
           @include('layouts.footer')
 
+          @yield('footer')
+
         </div>
     </body>
 </html>
